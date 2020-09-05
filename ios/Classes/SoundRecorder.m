@@ -348,7 +348,7 @@ extern void SoundRecorderReg(NSObject<FlutterPluginRegistrar>* registrar)
 {
         assert (progressTimer == atimer);
         double decibels = [self getDbLevel];
-        NSNumber *currentTime = [NSNumber numberWithDouble:audioRecorder.currentTime * 1000];
+        NSNumber *currentTime = [NSNumber numberWithInt:audioRecorder.currentTime * 1000];
         [audioRecorder updateMeters];
 
         NSString* status = [NSString stringWithFormat:@"{\"current_position\": \"%@\", \"decibels\":\"%lf\"}"
