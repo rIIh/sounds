@@ -626,7 +626,7 @@ extern void SoundPlayerReg(NSObject<FlutterPluginRegistrar>* registrar)
 - (void)updateProgress:(NSTimer*) atimer
 {
         NSLog(@"entered updateProgress");
-        assert (progressTimer == atimer);
+        assert (atimer == nil || progressTimer == atimer);
         NSNumber *duration = [NSNumber numberWithDouble:audioPlayer.duration * 1000];
         NSNumber *currentTime = [NSNumber numberWithDouble:audioPlayer.currentTime * 1000];
 
