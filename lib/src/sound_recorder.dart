@@ -191,7 +191,7 @@ class SoundRecorder implements SlotEntry {
   /// Called when the app is paused to release the OS resources
   /// but keep the [SoundRecorder] in a state that can be restarted.
   Future<void> _softRelease() async {
-    if (isRecording) {
+    if (isRecording && !_playInBackground) {
       await stop();
     }
 
@@ -353,6 +353,7 @@ class SoundRecorder implements SlotEntry {
   /// for some codecs which aren't natively support. Dependindig on the
   /// size of the file this could take a few moments to a few minutes.
   Future<void> stop() async {
+    print('Stop recording');
     if (!isRecording) {
       throw RecorderNotRunningException(
           "You cannot stop recording when the recorder is not running.");
@@ -485,8 +486,8 @@ class SoundRecorder implements SlotEntry {
       /// when we stop. We might need to look at doing a lazy
       /// call to [recode].
       stop();
+      _softRelease();
     }
-    _softRelease();
   }
 
   /// System event telling us that our app has been resumed.
